@@ -1,6 +1,11 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+function dateFormat(dateVal) {
+    const date = new Date(dateVal);
+    return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+}
+
 const ReactionSchema = new Schema({
     reactionId: {
         type: Schema.Types.ObjectId,

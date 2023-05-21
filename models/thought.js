@@ -2,6 +2,11 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const ReactionSchema = require('./reaction');
 
+function dateFormat(dateVal) {
+    const date = new Date(dateVal);
+    return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+}
+
 const ThoughtSchema = new Schema({
     thoughtText: {
         type: String,
