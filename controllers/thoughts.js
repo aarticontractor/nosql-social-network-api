@@ -21,6 +21,17 @@ router.post('/', async (req, res) => {
     }
 });
 
-
+// PUT to update a thought by its _id
+router.put('/:id', async (req, res) => {
+    try {
+        const updatedThought = await Thought.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        if (!updatedThought) {
+            return res.status(404).json({ message: 'No thought found with this id!' });
+        }
+        res.json(updatedThought.toObject());
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
 
 module.exports = router;
