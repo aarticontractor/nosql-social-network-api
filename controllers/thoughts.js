@@ -1,8 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const {Thought, User} = require('../models');
-// const User = require('../models/User');
-// const mongoose = require('mongoose');
+
 
 // POST to create a new thought
 router.post('/', async (req, res) => {

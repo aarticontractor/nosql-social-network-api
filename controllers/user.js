@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const User = require('../models/User');
-const Thought = require('../models/Thought');
+const {Thought, User} = require('../models');
 
 // POST a new user
 router.post('/', async (req, res) => {
@@ -16,7 +15,7 @@ router.post('/', async (req, res) => {
 // GET all users
 router.get('/', async (req, res) => {
     try {
-        const users = await User.find({});
+        const users = await User.find({}).populate('thoughts').populate('friends');
         res.status(200).json(users);
     } catch (err) {
         res.status(500).json(err);
@@ -35,6 +34,48 @@ router.get('/:id', async (req, res) => {
         res.status(500).json(err);
     }
 });
+
+//Deleting a USER and its associated thoughts-BONUS POINT
+router.delete('/:userId', async (req, res) => {
+
+try {
+    const targetedUser = await User.findByIdAndDelete(req.params.userId)
+    //    if (!targetedUser) {
+    //     return res.status(404).json({ message: 'No user found with this id!' });
+    //    }
+    //    else {
+    //      await Thought.deleteMany({ _id: { $in: targetedUser.thoughts } })
+    //      res.status(200).json(targetedUser);
+    //    }
+
+
+
+    //We can also do the same thing as above using ternary operators
+    !targetedUser 
+    ? res.status(404).json({ message: 'No user found with this id!' })
+    : await Thought.deleteMany({ _id: { $in: targetedUser.thoughts } })
+      res.status(200).json(targetedUser);
+       
+} catch (err) {
+    res.status(500).json(err);
+}
+
+});
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // POST API to add a new friend to a user's friend list
 router.post('/:userId/friends/:friendId', async (req, res) => {
