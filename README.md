@@ -2,7 +2,7 @@
 
 ## Description
 
-[Watch the Walkthrough Video]()
+[Watch the Walkthrough Video](https://www.youtube.com/watch?v=Z5-3cgRpoOg)
 <br>
 NoSQL Social Newtork API - here APIs are built for a social network web application where users can share their thoughts, react to friends’ thoughts, and create a friend list. 
 I've used Express.js for routing, a MongoDB database, and the Mongoose ODM, due to its speed with large amounts of data and flexibility with unstructured data.
