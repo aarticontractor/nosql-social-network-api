@@ -35,6 +35,19 @@ router.get('/:id', async (req, res) => {
     }
 });
 
+// PUT to update a user by its _id
+router.put('/:id', async (req, res) => {
+    try {
+        const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        if (!updatedUser) {
+            return res.status(404).json({ message: 'No User found with this id!' });
+        }
+        res.json(updatedUser);
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
+
 //Deleting a USER and its associated thoughts-BONUS POINT
 router.delete('/:userId', async (req, res) => {
 
