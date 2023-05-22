@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const Thought = require('../models/Thought');
-const User = require('../models/User');
-const mongoose = require('mongoose');
+const {Thought, User} = require('../models');
+// const User = require('../models/User');
+// const mongoose = require('mongoose');
 
 // POST to create a new thought
 router.post('/', async (req, res) => {
@@ -100,11 +100,11 @@ router.post('/:thoughtId/reactions', async (req, res) => {
 
 
 // DELETE to pull and remove a reaction by the reaction's reactionId value
-router.delete('/:thoughtId/reactions/:reactionId', async (req, res) => {
+router.put('/:thoughtId/reactions/:reactionId', async (req, res) => {
     try {
         const thought = await Thought.findByIdAndUpdate(
             req.params.thoughtId,
-            { $pull: { reactions: { reactionId: mongoose.Types.ObjectId(req.params.reactionId) } } },
+            { $pull: { reactions: { reactionId:(req.params.reactionId) } } },
             { new: true }
         );
 
